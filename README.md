@@ -1,4 +1,4 @@
-# Hamchess-DevSandbox
+# Hamchess-DevSandbox for developers.
 
 ## How to run?
 
