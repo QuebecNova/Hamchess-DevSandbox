@@ -7,9 +7,7 @@
 git clone git@github.com:QuebecNova/Hamchess-DevSandbox.git
 ```
 
-### 2. Create .env with config provided
-
-### 3. Run makefile:
+### 2. Run makefile:
 ```
 make install
 ```
