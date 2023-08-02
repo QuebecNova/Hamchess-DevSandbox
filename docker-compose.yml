@@ -1,0 +1,51 @@
+version: '3.7'
+
+services:
+  frontend:
+    build:
+      context: docker/node
+    env_file:
+      - .env
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    entrypoint: [ "npm", "start"]
+    
+  nginx:
+    image: nginx:latest
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
+      - backend
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./frontend/dist:/dist
+
+  backend:
+    restart: unless-stopped
+    build:
+      context: docker/node
+    env_file:
+      - .env
+    working_dir: /app
+    depends_on:
+      - mongodb
+    volumes:
+      - ./backend/:/app
+    entrypoint: [ "npm", "start" ]
+  
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    ports:
+      - 27017:27017
+    volumes:
+      - hamchess_mongodb_data:/data/db
+
+volumes:
+  hamchess_mongodb_data:
