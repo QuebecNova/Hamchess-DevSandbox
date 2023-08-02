@@ -7,6 +7,9 @@ install:
 	-git clone git@github.com:QuebecNova/Chess-on-React.git frontend
 	-git clone git@github.com:QuebecNova/Chess-On-React-Backend.git backend
 
+	cd frontend && npm install
+	cd backend && npm install
+
 	touch .env
 	docker-compose up -d
 	open 'http://hamchess.localhost/'
